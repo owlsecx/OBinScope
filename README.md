@@ -18,17 +18,18 @@
 
 ## 📌 Overview
 
-Static executable triage analyzer — PE / ELF / Mach-O headers, mitigations, packers, IOCs
+OBinScope is a static executable triage analyzer for PE, ELF and Mach-O (including FAT) binaries that is strictly read-only and never executes, loads or emulates a sample. Every header is parsed by hand with the stdlib struct module, and it extracts mitigations, imports, packer indicators, entropy, strings and IOCs with no network I/O. It produces a verdict and an A+…F grade tagged with MITRE ATT&CK/CAPEC references.
 
 ---
 
 ## ✨ Features
 
-- Hand-parsed PE / ELF / Mach-O (incl. FAT) via struct
-- Mitigations, imports, packers, entropy, strings/IOCs
-- Embedded PE/ELF detection, fuzzy profile, Authenticode
-- Verdict + A+…F grade with MITRE ATT&CK / CAPEC tags
-- Exports TXT/MD/JSON/CSV/SARIF · --demo · full CLI
+- Hand-parsed PE / ELF / Mach-O / FAT headers via stdlib struct (no execution)
+- Mitigation, import, packer and entropy/packing analysis
+- Strings sampling and IOC extraction
+- Embedded PE/ELF detection and Authenticode awareness
+- Verdict and A+…F grade with MITRE ATT&CK / CAPEC tags
+- Export TXT/MD/JSON/CSV/SARIF with --demo self-test and CI fail-on
 
 ---
 
@@ -42,7 +43,10 @@ Static executable triage analyzer — PE / ELF / Mach-O headers, mitigations, pa
 ## 🚀 Usage
 
 ```bash
-./OBinScope
+./OBinScope --path suspicious.exe
+./OBinScope -p ./samples/ --iocs --entropy --format-out json -o report.json
+./OBinScope --demo
+./OBinScope --help
 ```
 
 ---
